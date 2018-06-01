@@ -1,6 +1,6 @@
 {
   "name": "sawtooth-sdk",
-  "version": "0.0.0",
+  "version": "1.0.4",
   "description": "An SDK for interacting with the Hyperledger Sawtooth distributed ledger.",
   "keywords": [
     "hyperledger",

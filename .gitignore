@@ -17,12 +17,7 @@
 /.idea/
 *.sublime*
 
-/sdk/javascript/node_modules
-/sdk/javascript/package-lock.json
-/sdk/javascript/protobuf/protobuf_bundle.json
-/sdk/examples/xo_javascript/node_modules/
-/sdk/examples/xo_javascript/package-lock.json
-/sdk/examples/intkey_javascript/node_modules/
-/sdk/examples/intkey_javascript/package-lock.json
+**/node_modules
+/protobuf/protobuf_bundle.json
 
 *.batch

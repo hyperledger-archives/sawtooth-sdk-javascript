@@ -18,12 +18,12 @@
 #   build_javascript.
 #
 # Build:
-#   $ cd sawtooth-core/docker
-#   $ docker build . -f sawtooth-dev-javascript -t sawtooth-dev-javascript
+#   $ cd sawtooth-sdk-javascript/
+#   $ docker build . -f js-sdk-processors -t js-sdk-processors
 #
 # Run:
-#   $ cd sawtooth-core
-#   $ docker run -v $(pwd):/project/sawtooth-core sawtooth-dev-javascript
+#   $ cd sawtooth-sdk-javascript
+#   $ docker run -v $(pwd):/project/sawtooth-sdk-javascript js-sdk-processors
 
 FROM ubuntu:xenial
 
@@ -64,16 +64,16 @@ RUN npm install -g \
 
 EXPOSE 4004/tcp
 
-RUN mkdir -p /project/sawtooth-core/ \
+RUN mkdir -p /project/sawtooth-sdk-javascript/ \
  && mkdir -p /var/log/sawtooth \
  && mkdir -p /var/lib/sawtooth \
  && mkdir -p /etc/sawtooth \
  && mkdir -p /etc/sawtooth/keys
 
-ENV PATH=$PATH:/project/sawtooth-core/bin:/node_modules/phantomjs-prebuilt/bin
+ENV PATH=$PATH:/project/sawtooth-sdk-javascript/bin:/node_modules/phantomjs-prebuilt/bin
 
 WORKDIR /
 
-CMD /project/sawtooth-core/bin/build_javascript_sdk \
- && /project/sawtooth-core/bin/build_intkey_javascript \
- && /project/sawtooth-core/bin/build_xo_javascript
+CMD /project/sawtooth-sdk-javascript/bin/build_sdk \
+ && /project/sawtooth-sdk-javascript/bin/build_intkey \
+ && /project/sawtooth-sdk-javascript/bin/build_xo

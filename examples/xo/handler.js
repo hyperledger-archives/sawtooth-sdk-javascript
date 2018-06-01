@@ -17,9 +17,9 @@
 
 'use strict'
 
-const XoPayload = require('./xo_payload')
+const XoPayload = require('./payload')
 
-const { XO_NAMESPACE, XO_FAMILY, XoState } = require('./xo_state')
+const { XO_NAMESPACE, XO_FAMILY, XoState } = require('./state')
 
 const { TransactionHandler } = require('sawtooth-sdk/processor/handler')
 const { InvalidTransaction } = require('sawtooth-sdk/processor/exceptions')

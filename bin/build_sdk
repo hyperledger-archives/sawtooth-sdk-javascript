@@ -15,10 +15,9 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 top_dir=$(cd $(dirname $(dirname $0)) && pwd)
-cd $top_dir/sdk/examples/xo_javascript
-if [[ -z $* ]]
-then
-    npm start tcp://127.0.0.1:4004
-else
-    npm start -- $*
-fi
+cd $top_dir
+
+rm -r node_modules
+npm set progress=false
+npm install --no-bin-links
+npm run compile_protobuf

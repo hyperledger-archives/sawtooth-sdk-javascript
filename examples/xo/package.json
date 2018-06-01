@@ -11,6 +11,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "cbor": "^3.0.0",
-    "sawtooth-sdk": "file:./../../javascript"
+    "sawtooth-sdk": "file:../../"
   }
 }

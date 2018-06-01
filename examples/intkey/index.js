@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 Intel Corporation
+ * Copyright 2016 Intel Corporation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 'use strict'
 
 const { TransactionProcessor } = require('sawtooth-sdk/processor')
-const XOHandler = require('./xo_handler')
+const IntegerKeyHandler = require('./handler')
 
 if (process.argv.length < 3) {
   console.log('missing a validator address')
@@ -29,6 +29,6 @@ const address = process.argv[2]
 
 const transactionProcessor = new TransactionProcessor(address)
 
-transactionProcessor.addHandler(new XOHandler())
+transactionProcessor.addHandler(new IntegerKeyHandler())
 
 transactionProcessor.start()

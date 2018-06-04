@@ -60,30 +60,9 @@ node ('master') {
         // Set the ISOLATION_ID environment variable for the whole pipeline
         env.ISOLATION_ID = sh(returnStdout: true, script: 'printf $BUILD_TAG | sha256sum | cut -c1-64').trim()
 
-        // Use a docker container to build and protogen, so that the Jenkins
-        // environment doesn't need all the dependencies.
-        stage("Build Test Dependencies") {
-            sh './bin/build_all installed'
-        }
-
-        stage("Run Lint") {
-            sh 'docker run --rm -v $(pwd):/project/sawtooth-core sawtooth-dev-python:$ISOLATION_ID run_lint'
-            sh 'docker run --rm -v $(pwd):/project/sawtooth-core sawtooth-dev-go:$ISOLATION_ID run_go_fmt'
-            sh 'docker run --rm -v $(pwd):/project/sawtooth-core sawtooth-dev-rust:$ISOLATION_ID run_lint_rust'
-            sh 'docker run --rm -v $(pwd):/project/sawtooth-core sawtooth-dev-validator:$ISOLATION_ID run_lint_validator'
-        }
-
-        stage("Run Bandit") {
-            sh 'docker run --rm -v $(pwd):/project/sawtooth-core sawtooth-dev-python:$ISOLATION_ID run_bandit'
-        }
-
         // Run the tests
         stage("Run Tests") {
             sh './bin/run_tests -i deployment'
-        }
-
-        stage("Compile coverage report") {
-            sh 'docker run --rm -v $(pwd):/project/sawtooth-core sawtooth-dev-python:$ISOLATION_ID /bin/bash -c "cd coverage && coverage combine && coverage html -d html"'
         }
 
         stage("Create git archive") {
@@ -95,20 +74,8 @@ node ('master') {
             '''
         }
 
-        stage ("Build documentation") {
-            sh 'docker build . -f ci/sawtooth-build-docs -t sawtooth-build-docs:$ISOLATION_ID'
-            sh 'docker run --rm -v $(pwd):/project/sawtooth-core sawtooth-build-docs:$ISOLATION_ID'
-        }
-
         stage("Archive Build artifacts") {
             archiveArtifacts artifacts: '*.tgz, *.zip'
-            archiveArtifacts artifacts: 'build/debs/cxx/*.deb'
-            archiveArtifacts artifacts: 'build/debs/go/*.deb'
-            archiveArtifacts artifacts: 'build/debs/python/*.deb'
-            archiveArtifacts artifacts: 'build/debs/rust/*.deb'
-            archiveArtifacts artifacts: 'build/bandit.html'
-            archiveArtifacts artifacts: 'coverage/html/*'
-            archiveArtifacts artifacts: 'docs/build/html/**, docs/build/latex/*.pdf'
         }
     }
 }

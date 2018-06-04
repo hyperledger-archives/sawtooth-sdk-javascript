@@ -106,7 +106,7 @@ class TransactionProcessor {
             let applyPromise
             try {
               applyPromise = Promise.resolve(handler.apply(request, context))
-            } catch(err) {
+            } catch (err) {
               applyPromise = Promise.reject(err)
             }
             applyPromise

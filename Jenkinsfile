@@ -62,7 +62,10 @@ node ('master') {
 
         // Run the tests
         stage("Run Tests") {
-            sh './bin/run_tests -i deployment'
+            sh 'docker-compose -f examples/intkey/tests/tp_tests_compose.yaml up --abort-on-container-exit'
+            sh 'docker-compose -f examples/intkey/tests/smoke_tests_compose.yaml up --abort-on-container-exit'
+            sh 'docker-compose -f examples/xo/tests/tp_tests_compose.yaml up --abort-on-container-exit'
+            sh 'docker-compose -f examples/xo/tests/smoke_tests_compose.yaml up --abort-on-container-exit'
         }
 
         stage("Create git archive") {

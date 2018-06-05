@@ -27,6 +27,7 @@ services:
   xo-tp:
     build: ../../
     image: js-sdk-xo-tp:$ISOLATION_ID
+    container_name: js-sdk-xo-tp
     volumes:
       - ../../../:/project/sawtooth-sdk-javascript
       - /project/sawtooth-sdk-javascript/node_modules
@@ -66,6 +67,7 @@ services:
   xo-tests:
     build: ./
     image: xo-tests:$ISOLATION_ID
+    container_name: js-sdk-xo-tests
     depends_on:
       - validator
       - rest-api

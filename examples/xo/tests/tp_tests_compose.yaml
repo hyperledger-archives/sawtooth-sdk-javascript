@@ -17,31 +17,28 @@ version: "2.1"
 
 services:
 
-  intkey-tp-java:
-    build:
-      context: ../../..
-      dockerfile: ./Dockerfile
-    image: sawtooth-intkey-tp-java-local:$ISOLATION_ID
+  xo-tp:
+    build: ../../
+    image: js-sdk-xo-tp:$ISOLATION_ID
     volumes:
-      - ../../..:/project/sawtooth-sdk-java
+      - ../../../:/project/sawtooth-sdk-javascript
+      - /project/sawtooth-sdk-javascript/node_modules
+      - /project/sawtooth-sdk-javascript/examples/intkey/node_modules
+      - /project/sawtooth-sdk-javascript/examples/xo/node_modules
     expose:
       - 4004
-    command: intkey-tp-java tcp://test-tp-intkey-java:4004
+    command: xo-tp tcp://xo-tests:4004
     stop_signal: SIGKILL
 
-  test-tp-intkey-java:
-    build:
-      context: ../
-      dockerfile: ./intkey-tests.dockerfile
-    image: intkey-tests:$ISOLATION_ID
-    volumes:
-      - ../../..:/project/sawtooth-sdk-java
+  xo-tests:
+    build: ./
+    image: js-sdk-xo-tests:$ISOLATION_ID
     expose:
       - 4004
     command: nose2-3
         -v
-        -s /tmp/tests/intkey/
-        test_tp_intkey
+        -s /tmp/tests/xo
+        test_tp_xo
     stop_signal: SIGKILL
     environment:
       TEST_BIND: "tcp://eth0:4004"

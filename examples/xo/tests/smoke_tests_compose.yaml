@@ -26,18 +26,19 @@ services:
     command: settings-tp -vv -C tcp://validator:4004
     stop_signal: SIGKILL
 
-  xo-tp-java:
-    build:
-      context: ../../..
-      dockerfile: ./Dockerfile
-    image: sawtooth-xo-tp-java-local:$ISOLATION_ID
+  xo-tp:
+    build: ../../
+    image: js-sdk-xo-tp:$ISOLATION_ID
     volumes:
-      - ../../..:/project/sawtooth-sdk-java
+      - ../../../:/project/sawtooth-sdk-javascript
+      - /project/sawtooth-sdk-javascript/node_modules
+      - /project/sawtooth-sdk-javascript/examples/intkey/node_modules
+      - /project/sawtooth-sdk-javascript/examples/xo/node_modules
     expose:
       - 4004
     depends_on:
       - validator
-    command: xo-tp-java tcp://validator:4004
+    command: xo-tp tcp://validator:4004
     stop_signal: SIGKILL
 
   validator:
@@ -67,13 +68,9 @@ services:
     command: sawtooth-rest-api -v --connect tcp://validator:4004 --bind rest-api:8008
     stop_signal: SIGKILL
 
-  test-xo-smoke-java:
-    build:
-      context: ../
-      dockerfile: ./xo-tests.dockerfile
+  xo-tests:
+    build: ./
     image: xo-tests:$ISOLATION_ID
-    volumes:
-      - ../../..:/project/sawtooth-sdk-java
     expose:
       - 8008
     depends_on:

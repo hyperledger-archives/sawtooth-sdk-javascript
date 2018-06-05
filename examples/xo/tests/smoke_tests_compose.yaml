@@ -19,8 +19,6 @@ services:
 
   settings-tp:
     image: hyperledger/sawtooth-settings-tp
-    expose:
-      - 4004
     depends_on:
       - validator
     command: settings-tp -vv -C tcp://validator:4004
@@ -34,8 +32,6 @@ services:
       - /project/sawtooth-sdk-javascript/node_modules
       - /project/sawtooth-sdk-javascript/examples/intkey/node_modules
       - /project/sawtooth-sdk-javascript/examples/xo/node_modules
-    expose:
-      - 4004
     depends_on:
       - validator
     command: xo-tp tcp://validator:4004
@@ -61,7 +57,6 @@ services:
   rest-api:
     image: hyperledger/sawtooth-rest-api
     expose:
-      - 4004
       - 8008
     depends_on:
      - validator
@@ -71,8 +66,6 @@ services:
   xo-tests:
     build: ./
     image: xo-tests:$ISOLATION_ID
-    expose:
-      - 8008
     depends_on:
       - validator
       - rest-api

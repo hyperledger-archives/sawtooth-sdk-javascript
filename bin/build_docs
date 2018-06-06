@@ -1,4 +1,6 @@
-# Copyright 2017 Intel Corporation
+#!/usr/bin/env bash
+#
+# Copyright 2018 Cargill Incorporated
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,14 +13,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+CURR_DIR=$(pwd)
+ROOT_DIR=$(cd $(dirname $(dirname $0)) && pwd)
 
-# Exclude IDE and Editor files
-/.idea/
-*.sublime*
+cd $ROOT_DIR
 
-**/node_modules
-/protobuf/protobuf_bundle.json
-docs/build/
+docker build -t js-sdk-doc-builder docs/
+docker run -v $(pwd):/sawtooth-sdk-javascript js-sdk-doc-builder
 
-*.batch
+cd $CURR_DIR

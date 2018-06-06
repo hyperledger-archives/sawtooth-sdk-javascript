@@ -23,6 +23,9 @@ const { createHash, randomBytes } = require('crypto')
 
 const { PrivateKey, PublicKey, Context, ParseError } = require('./core')
 
+/**
+ * A Secp256k1 specific implementation of the PrivateKey class.
+ */
 class Secp256k1PrivateKey extends PrivateKey {
   /**
    * @param {Buffer} privateKeyBytes - the bytes of the private key
@@ -70,7 +73,13 @@ class Secp256k1PrivateKey extends PrivateKey {
   }
 }
 
+/**
+ * A Secp256k1 specific implementation of the PublicKey class.
+ */
 class Secp256k1PublicKey extends PublicKey {
+  /**
+   * @param {Buffer} publicKeyBytes - the bytes of the public key
+   */
   constructor (publicKeyBytes) {
     super()
     this.publicKeyBytes = publicKeyBytes
@@ -103,6 +112,9 @@ class Secp256k1PublicKey extends PublicKey {
   }
 }
 
+/**
+ * A Secp256k1 specific implementation of the abstract Context class.
+ */
 class Secp256k1Context extends Context {
   getAlgorithmName () {
     return 'secp256k1'

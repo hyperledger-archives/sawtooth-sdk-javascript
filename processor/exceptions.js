@@ -15,6 +15,7 @@
  * ------------------------------------------------------------------------------
  */
 
+/** @module processor/exceptions */
 'use strict'
 
 class _TransactionProcessorError extends Error {

@@ -15,6 +15,7 @@
  * ------------------------------------------------------------------------------
  */
 
+/** @module protobuf */
 'use strict'
 
 const protobuf = require('protobufjs')

@@ -15,6 +15,7 @@
  * ------------------------------------------------------------------------------
  */
 
+/** @module signing */
 'use strict'
 
 const { NoSuchAlgorithmError, SigningError, ParseError } = require('./core')

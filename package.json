@@ -10,7 +10,7 @@
     "protobuf"
   ],
   "homepage": "https://www.hyperledger.org/projects/sawtooth",
-  "repository": "https://github.com/hyperledger/sawtooth-core.git",
+  "repository": "https://github.com/hyperledger/sawtooth-sdk-javascript.git",
   "main": "index.js",
   "scripts": {
     "test": "standard && node_modules/mocha/bin/mocha --recursive spec",

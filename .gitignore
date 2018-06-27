@@ -21,4 +21,8 @@
 /protobuf/protobuf_bundle.json
 docs/build/
 
+# Not checking in lock files allows us to catch issues that will inevitably
+# crop up during library updates during the CI process
+package-lock.json
+
 *.batch

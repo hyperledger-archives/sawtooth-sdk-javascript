@@ -20,7 +20,6 @@ services:
   xo-tp:
     build: ../../
     image: js-sdk-xo-tp:$ISOLATION_ID
-    container_name: js-sdk-xo-tp
     volumes:
       - ../../../:/project/sawtooth-sdk-javascript
       - /project/sawtooth-sdk-javascript/node_modules
@@ -32,7 +31,6 @@ services:
   xo-tests:
     build: ./
     image: js-sdk-xo-tests:$ISOLATION_ID
-    container_name: js-sdk-xo-tests
     command: nose2-3
         -v
         -s /data/tests/xo

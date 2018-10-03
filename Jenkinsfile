@@ -62,6 +62,11 @@ node ('master') {
         // Set the project name for the whole pipeline
         env.COMPOSE_PROJECT_NAME = sh(returnStdout: true, script: 'printf $BUILD_TAG | sha256sum | cut -c1-64').trim()
 
+        stage("Build Test Dependencies") {
+            sh 'docker-compose -f examples/docker-compose.yaml up --abort-on-container-exit --force-recreate --renew-anon-volumes --exit-code-from intkey-tp intkey-tp'
+            sh 'docker-compose -f examples/docker-compose.yaml up --abort-on-container-exit --force-recreate --renew-anon-volumes --exit-code-from xo-tp xo-tp'
+        }
+
         // Run the tests
         stage("Run Tests") {
             sh 'docker-compose -f examples/intkey/tests/tp_tests_compose.yaml up --abort-on-container-exit --force-recreate --renew-anon-volumes --exit-code-from intkey-tests'

@@ -29,9 +29,6 @@ services:
     image: js-sdk-intkey-tp:$ISOLATION_ID
     volumes:
       - ../../../:/project/sawtooth-sdk-javascript
-      - /project/sawtooth-sdk-javascript/node_modules
-      - /project/sawtooth-sdk-javascript/examples/intkey/node_modules
-      - /project/sawtooth-sdk-javascript/examples/xo/node_modules
     depends_on:
       - validator
     command: intkey-tp tcp://validator:4004

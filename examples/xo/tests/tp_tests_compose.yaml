@@ -22,9 +22,6 @@ services:
     image: js-sdk-xo-tp:$ISOLATION_ID
     volumes:
       - ../../../:/project/sawtooth-sdk-javascript
-      - /project/sawtooth-sdk-javascript/node_modules
-      - /project/sawtooth-sdk-javascript/examples/intkey/node_modules
-      - /project/sawtooth-sdk-javascript/examples/xo/node_modules
     command: xo-tp tcp://xo-tests:4004
     stop_signal: SIGKILL
 

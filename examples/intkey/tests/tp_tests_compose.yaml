@@ -35,7 +35,7 @@ services:
     container_name: js-sdk-intkey-tests
     command: nose2-3
         -v
-        -s /tmp/tests/intkey/
+        -s /data/tests/intkey/
         test_tp_intkey
     stop_signal: SIGKILL
     environment:

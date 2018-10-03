@@ -35,7 +35,7 @@ services:
     container_name: js-sdk-xo-tests
     command: nose2-3
         -v
-        -s /tmp/tests/xo
+        -s /data/tests/xo
         test_tp_xo
     stop_signal: SIGKILL
     environment:

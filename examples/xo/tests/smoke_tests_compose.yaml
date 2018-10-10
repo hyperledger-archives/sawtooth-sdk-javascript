@@ -67,6 +67,8 @@ services:
       - validator
       - rest-api
     # Wait for rest_api
+    environment:
+      TP_LANG: javascript
     command: nose2-3
         -v
         -s /usr/lib/python3/dist-packages/sawtooth_integration/tests/

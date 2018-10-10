@@ -1,4 +1,4 @@
-# Copyright 2017 Intel Corporation
+# Copyright 2018 Cargill Incorporated
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,21 +17,28 @@ version: "2.1"
 
 services:
 
-  intkey-tp:
-    build: ../../
-    image: js-sdk-intkey-tp:$ISOLATION_ID
+  xo-tp:
+    build: ./
+    image: js-sdk-xo-tp:$ISOLATION_ID
     volumes:
-      - ../../../:/project/sawtooth-sdk-javascript
-    command: intkey-tp tcp://intkey-tests:4004
+      - ../:/project/sawtooth-sdk-javascript
+    working_dir: /project/sawtooth-sdk-javascript
+    command: |
+      bash -c "
+        ./bin/build_sdk \
+        && ./bin/build_xo
+      "
     stop_signal: SIGKILL
 
-  intkey-tests:
+  intkey-tp:
     build: ./
-    image: js-sdk-intkey-tests:$ISOLATION_ID
-    command: nose2-3
-        -v
-        -s /data/tests/intkey/
-        test_tp_intkey
+    image: js-sdk-intkey-tp:$ISOLATION_ID
+    volumes:
+      - ../:/project/sawtooth-sdk-javascript
+    working_dir: /project/sawtooth-sdk-javascript
+    command: |
+      bash -c "
+        ./bin/build_sdk \
+        && ./bin/build_intkey
+      "
     stop_signal: SIGKILL
-    environment:
-      TEST_BIND: "tcp://eth0:4004"

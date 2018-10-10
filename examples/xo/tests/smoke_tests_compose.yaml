@@ -27,12 +27,8 @@ services:
   xo-tp:
     build: ../../
     image: js-sdk-xo-tp:$ISOLATION_ID
-    container_name: js-sdk-xo-tp
     volumes:
       - ../../../:/project/sawtooth-sdk-javascript
-      - /project/sawtooth-sdk-javascript/node_modules
-      - /project/sawtooth-sdk-javascript/examples/intkey/node_modules
-      - /project/sawtooth-sdk-javascript/examples/xo/node_modules
     depends_on:
       - validator
     command: xo-tp tcp://validator:4004
@@ -67,11 +63,12 @@ services:
   xo-tests:
     build: ./
     image: xo-tests:$ISOLATION_ID
-    container_name: js-sdk-xo-tests
     depends_on:
       - validator
       - rest-api
     # Wait for rest_api
+    environment:
+      TP_LANG: javascript
     command: nose2-3
         -v
         -s /usr/lib/python3/dist-packages/sawtooth_integration/tests/

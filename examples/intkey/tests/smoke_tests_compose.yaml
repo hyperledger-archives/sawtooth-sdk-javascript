@@ -27,12 +27,8 @@ services:
   intkey-tp:
     build: ../../
     image: js-sdk-intkey-tp:$ISOLATION_ID
-    container_name: js-sdk-intkey-tp
     volumes:
       - ../../../:/project/sawtooth-sdk-javascript
-      - /project/sawtooth-sdk-javascript/node_modules
-      - /project/sawtooth-sdk-javascript/examples/intkey/node_modules
-      - /project/sawtooth-sdk-javascript/examples/xo/node_modules
     depends_on:
       - validator
     command: intkey-tp tcp://validator:4004
@@ -68,7 +64,6 @@ services:
   intkey-tests:
     build: ./
     image: js-sdk-intkey-tests:$ISOLATION_ID
-    container_name: js-sdk-intkey-tests
     depends_on:
       - validator
       - rest-api

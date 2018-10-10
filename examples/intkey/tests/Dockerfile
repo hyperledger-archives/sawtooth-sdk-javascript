@@ -16,7 +16,8 @@
 FROM ubuntu:xenial
 
 RUN echo "deb http://repo.sawtooth.me/ubuntu/nightly xenial universe" >> /etc/apt/sources.list \
- && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 8AA7AF1F1091A5FD \
+ && (apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 44FC67F19B2466EA \
+ || apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 44FC67F19B2466EA) \
  && apt-get update
 
 RUN apt-get install -y -q \
@@ -54,6 +55,6 @@ RUN pip3 install \
 
 RUN mkdir -p /var/log/sawtooth
 
-ENV PATH=$PATH:/project/sawtooth-core/bin
+ENV PATH=$PATH:/project/sawtoothsdk-javascript/bin
 
-WORKDIR /project/sawtooth-core
+WORKDIR /project/sawtooth-sdk-javascript

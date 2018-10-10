@@ -25,6 +25,7 @@ node ('master') {
     ws("workspace/${env.BUILD_TAG}") {
         stage("Clone Repo") {
             checkout scm
+            sh 'git fetch --tag'
         }
 
         if (!(env.BRANCH_NAME == 'master' && env.JOB_BASE_NAME == 'master')) {
@@ -59,13 +60,20 @@ node ('master') {
 
         // Set the ISOLATION_ID environment variable for the whole pipeline
         env.ISOLATION_ID = sh(returnStdout: true, script: 'printf $BUILD_TAG | sha256sum | cut -c1-64').trim()
+        // Set the project name for the whole pipeline
+        env.COMPOSE_PROJECT_NAME = sh(returnStdout: true, script: 'printf $BUILD_TAG | sha256sum | cut -c1-64').trim()
+
+        stage("Build Test Dependencies") {
+            sh 'docker-compose -f examples/docker-compose.yaml up --abort-on-container-exit --force-recreate --renew-anon-volumes --exit-code-from intkey-tp intkey-tp'
+            sh 'docker-compose -f examples/docker-compose.yaml up --abort-on-container-exit --force-recreate --renew-anon-volumes --exit-code-from xo-tp xo-tp'
+        }
 
         // Run the tests
         stage("Run Tests") {
-            sh 'docker-compose -f examples/intkey/tests/tp_tests_compose.yaml up --abort-on-container-exit'
-            sh 'docker-compose -f examples/intkey/tests/smoke_tests_compose.yaml up --abort-on-container-exit'
-            sh 'docker-compose -f examples/xo/tests/tp_tests_compose.yaml up --abort-on-container-exit'
-            sh 'docker-compose -f examples/xo/tests/smoke_tests_compose.yaml up --abort-on-container-exit'
+            sh 'docker-compose -f examples/intkey/tests/tp_tests_compose.yaml up --abort-on-container-exit --force-recreate --renew-anon-volumes --exit-code-from intkey-tests'
+            sh 'docker-compose -f examples/intkey/tests/smoke_tests_compose.yaml up --abort-on-container-exit --force-recreate --renew-anon-volumes --exit-code-from intkey-tests'
+            sh 'docker-compose -f examples/xo/tests/tp_tests_compose.yaml up --abort-on-container-exit --force-recreate --renew-anon-volumes --exit-code-from xo-tests'
+            sh 'docker-compose -f examples/xo/tests/smoke_tests_compose.yaml up --abort-on-container-exit --force-recreate --renew-anon-volumes --exit-code-from xo-tests'
         }
 
         stage("Create git archive") {

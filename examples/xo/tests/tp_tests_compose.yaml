@@ -20,22 +20,17 @@ services:
   xo-tp:
     build: ../../
     image: js-sdk-xo-tp:$ISOLATION_ID
-    container_name: js-sdk-xo-tp
     volumes:
       - ../../../:/project/sawtooth-sdk-javascript
-      - /project/sawtooth-sdk-javascript/node_modules
-      - /project/sawtooth-sdk-javascript/examples/intkey/node_modules
-      - /project/sawtooth-sdk-javascript/examples/xo/node_modules
     command: xo-tp tcp://xo-tests:4004
     stop_signal: SIGKILL
 
   xo-tests:
     build: ./
     image: js-sdk-xo-tests:$ISOLATION_ID
-    container_name: js-sdk-xo-tests
     command: nose2-3
         -v
-        -s /tmp/tests/xo
+        -s /data/tests/xo
         test_tp_xo
     stop_signal: SIGKILL
     environment:

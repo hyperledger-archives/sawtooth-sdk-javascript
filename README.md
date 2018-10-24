@@ -9,3 +9,8 @@ The *Sawtooth SDK* provides a number of useful components that simplify developi
   * [Hyperledger Sawtooth Official Documentation](https://sawtooth.hyperledger.org/docs/)
   * [Sawtooth Application Developer's Guide](https://sawtooth.hyperledger.org/docs/core/releases/latest/app_developers_guide.html)
   * [Sawtooth JavaScript SDK Guide](https://sawtooth.hyperledger.org/docs/core/releases/latest/app_developers_guide/javascript_sdk.html)
+
+License
+-------
+Hyperledger Sawtooth software is licensed under the [Apache License Version 2.0](LICENSE) software license.
+

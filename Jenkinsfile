@@ -76,6 +76,12 @@ node ('master') {
             sh 'docker-compose -f examples/xo/tests/smoke_tests_compose.yaml up --abort-on-container-exit --force-recreate --renew-anon-volumes --exit-code-from xo-tests'
         }
 
+        // Build the docs
+        stage("Build docs") {
+            sh 'docker build . -f docs/Dockerfile -t sawtooth-sdk-javascript-docs'
+            sh 'docker run --rm -v $(pwd):/sawtooth-sdk-javascript sawtooth-sdk-javascript-docs'
+        }
+
         stage("Create git archive") {
             sh '''
                 REPO=$(git remote show -n origin | grep Fetch | awk -F'[/.]' '{print $6}')
@@ -87,6 +93,7 @@ node ('master') {
 
         stage("Archive Build artifacts") {
             archiveArtifacts artifacts: '*.tgz, *.zip'
+            archiveArtifacts artifacts: 'docs/build/html/**'
         }
     }
 }

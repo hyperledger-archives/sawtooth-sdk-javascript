@@ -18,4 +18,4 @@ RUN npm install -g jsdoc@3
 
 WORKDIR sawtooth-sdk-javascript/
 
-CMD jsdoc processor/ signing/ protobuf/ -d docs/build/
+CMD jsdoc processor/ signing/ protobuf/ -d docs/build/html

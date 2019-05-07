@@ -15,6 +15,7 @@
 
 # Exclude IDE and Editor files
 /.idea/
+/.vscode/
 *.sublime*
 
 **/node_modules

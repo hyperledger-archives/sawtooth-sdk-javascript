@@ -10,6 +10,7 @@
 | Darian Plumb | dplumb94 | dplumb |
 | James Mitchell | jsmitchell | jsmitchell |
 | Peter Schwarz | peterschwarz | pschwarz |
+| Richard Berg | rberg2 | rberg2 |
 | Ryan Beck-Buysse | rbuysse | rbuysse |
 | Shawn Amundson | vaporos | amundson |
 

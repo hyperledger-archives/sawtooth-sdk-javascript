@@ -50,9 +50,6 @@ RUN apt-get install -y -q \
     python3-nose2 \
     python3-pip
 
-RUN pip3 install \
-    coverage --upgrade
-
 RUN mkdir -p /var/log/sawtooth
 
 ENV PATH=$PATH:/project/sawtoothsdk-javascript/bin

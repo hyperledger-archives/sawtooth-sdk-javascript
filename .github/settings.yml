@@ -20,6 +20,7 @@ repository:
   has_issues: true
   has_projects: false
   has_wiki: false
+  archived: true
   has_downloads: false
   default_branch: main
   allow_squash_merge: false
